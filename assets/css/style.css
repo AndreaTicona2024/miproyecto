@@ -1,0 +1,7 @@
+.gradient-custom {
+    background-image: linear-gradient(to right, rgba(40, 2, 80, 0.5), rgba(37, 117, 252, 0.5)), 
+                      url('../assets/img/logo.png'); /* Ajusta la ruta si es necesario */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
