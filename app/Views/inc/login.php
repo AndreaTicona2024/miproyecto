@@ -18,34 +18,7 @@
   <link rel="stylesheet" href="<?= base_url('adminlte/dist/css/adminlte.min.css') ?>">
   <link rel="stylesheet" href="<?= base_url('assets/css/style.css') ?>">
 </head>
-<body>
-
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">
-    <img src="<?php echo base_url(); ?>assets/img/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8; width: 40px; height: 40px;">
-    Andes S.A.M
-  </a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="<?= site_url('inicio') ?>">Inicio</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="<?= site_url('nosotros') ?>">Nosotros</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="<?= site_url('contacto') ?>">Contacto</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="<?= site_url('Login/create') ?>">Registrarse</a>
-      </li>
-    </ul>
-  </div>
-</nav>
+<body class="gradient-custom">
 
 <section class="vh-100 gradient-custom">
   <div class="container py-5 h-100">
@@ -56,7 +29,8 @@
 
             <div class="mb-md-5 mt-md-4 pb-5">
 
-              <h2 class="fw-bold mb-2 text-uppercase">Bienvenido</h2>
+              <h2 class="fw-bold mb-2 text-uppercase">ANDES S.A.M</h2>
+              <h3 class="fw-bold mb-2 ">BIENVENIDO</h3>
               <p class="text-white-50 mb-5">Por favor ingrese usuario y contraseña!</p>
 
               <!-- Mostrar mensaje de éxito si existe -->
@@ -84,16 +58,16 @@
                   <label class="form-label" for="typePasswordX">Contraseña</label>
                 </div>
 
-                <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#!">Has olvidado tu contraseña?</a></p>
+                <!-- <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#!">Has olvidado tu contraseña?</a></p> -->
 
                 <button data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-light btn-lg px-5" type="submit">Ingresar</button>
               </form>
 
             </div>
 
-            <div>
+            <!-- <div>
               <p class="mb-0">Aun no tienes cuenta? <a href="<?= site_url('Login/create') ?>" class="text-white-50 fw-bold">Registrarse</a></p>
-            </div>
+            </div> -->
 
           </div>
         </div>

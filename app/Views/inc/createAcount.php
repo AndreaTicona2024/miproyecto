@@ -168,27 +168,33 @@
 
     <!-- Initialization Script -->
     <script>
-        // Inicialización de intlTelInput en el campo de teléfono
-        var input = document.querySelector("#telefono");
-        window.intlTelInput(input, {
-            initialCountry: "auto",
-            separateDialCode: true,
-            preferredCountries: ["us", "mx", "es"]
-        });
+    // Inicialización de intlTelInput en el campo de teléfono
+    var input = document.querySelector("#telefono");
+    var iti = window.intlTelInput(input, {
+        initialCountry: "auto",
+        separateDialCode: true,
+        preferredCountries: ["us", "mx", "es"]
+    });
 
-        // Mostrar el modal de verificación al enviar el formulario de registro
-        document.getElementById('registerForm').addEventListener('submit', function(event) {
-            event.preventDefault();
+    // Mostrar el modal de verificación al enviar el formulario de registro
+    document.getElementById('registerForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Evitar el envío del formulario
 
-            // Enviar formulario para registrar usuario
-            this.submit();
+        // Mostrar el modal de verificación
+        var verificationModal = new bootstrap.Modal(document.getElementById('verificationModal'));
+        verificationModal.show();
 
-            // Mostrar el modal de verificación
-            var verificationModal = new bootstrap.Modal(document.getElementById('verificationModal'));
-            verificationModal.show();
-        });
-        
-    </script>
+        // Procesar la verificación o cualquier otra lógica aquí
+        // Una vez que el usuario haya completado la verificación, puedes enviar el formulario
+
+        // Ejemplo: 
+        // document.getElementById('verificationModal').addEventListener('hidden.bs.modal', function () {
+        //     // Enviar formulario después de cerrar el modal
+        //     document.getElementById('registerForm').submit();
+        // });
+    });
+</script>
+.
 </body>
 
 </html>

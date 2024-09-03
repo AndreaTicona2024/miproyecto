@@ -141,10 +141,10 @@ class Login extends Controller
             $this->enviarCorreoVerificacion($email, $token);
     
             $this->session->setFlashdata('success', 'Por favor, verifica tu correo electrónico para completar el registro.');
-            return redirect()->to('/Login/index');
+            return redirect()->to('/Login/listadeusuarios');
         } else {
             $this->session->setFlashdata('error', 'Error al registrar el usuario');
-            return redirect()->to('/Login/create');
+            // return redirect()->to('/Login/create');
         }
     }
 
