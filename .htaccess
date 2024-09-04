@@ -15,7 +15,10 @@ Options -Indexes
 	# change the following line to match the subfolder you need.
 	# http://httpd.apache.org/docs/current/mod/mod_rewrite.html#rewritebase
 	# RewriteBase /
+<<<<<<< HEAD
 	RewriteBase /andreaproject/
+=======
+>>>>>>> df995b144dcec79aa9274b344d523ee119dfc1c3
 
 	# Redirect Trailing Slashes...
 	RewriteCond %{REQUEST_FILENAME} !-d

@@ -1,10 +1,20 @@
 <?php
 namespace App\Controllers;
+<<<<<<< HEAD
 
 use CodeIgniter\Controller;
 use App\Models\ProductoModel; // Importar el modelo ProductoModel
 
 class Productos extends Controller
+=======
+use CodeIgniter\Controller;
+use CodeIgniter\Email\Email;
+use App\Models\UserModel;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+class Login extends Controller
+>>>>>>> df995b144dcec79aa9274b344d523ee119dfc1c3
 {
     protected $session;
 
@@ -12,10 +22,16 @@ class Productos extends Controller
     {
         $this->session = session();
     }
+<<<<<<< HEAD
 
     public function crear()
     {
         return view('create_producto');
+=======
+    public function crear()
+    {
+        echo view('create_producto');
+>>>>>>> df995b144dcec79aa9274b344d523ee119dfc1c3
     }
 
     public function guardar()
@@ -67,5 +83,8 @@ class Productos extends Controller
         }
     }
 }
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> df995b144dcec79aa9274b344d523ee119dfc1c3

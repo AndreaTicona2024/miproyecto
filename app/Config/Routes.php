@@ -47,6 +47,7 @@ $routes->get('404', 'Errors::show404');
 
 // Ruta para verificar el correo electrónico
 $routes->get('verificarCorreo', 'Login::verificarCorreo');
+<<<<<<< HEAD
 
 // Ruta para mostrar usuarios activos
 $routes->get('Login/usuariosActivos', 'Login::usuariosActivos');
@@ -71,3 +72,10 @@ $routes->delete('productos/eliminar/(:num)', 'Productos::eliminar/$1');
 
 // Definir rutas de pruebas si es necesario
 $routes->get('test', 'TestController::index');
+=======
+$routes->get('Login/usuariosActivos', 'Login::usuariosActivos');
+
+$routes->get('productos/crear', 'ProductosController::crear');
+$routes->post('productos/guardar', 'ProductosController::guardar');
+
+>>>>>>> df995b144dcec79aa9274b344d523ee119dfc1c3

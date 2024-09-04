@@ -1,10 +1,18 @@
 <?php
 
+<<<<<<< HEAD
 namespace App\Models;
 
 use CodeIgniter\Model;
 
 class Productos extends Model
+=======
+namespace App\Controllers;
+
+use App\Models\ProductoModel;
+
+class ProductosController extends BaseController
+>>>>>>> df995b144dcec79aa9274b344d523ee119dfc1c3
 {
     public function crear()
     {
