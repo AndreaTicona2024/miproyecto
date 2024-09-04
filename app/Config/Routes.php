@@ -48,3 +48,7 @@ $routes->get('404', 'Errors::show404');
 // Ruta para verificar el correo electrónico
 $routes->get('verificarCorreo', 'Login::verificarCorreo');
 $routes->get('Login/usuariosActivos', 'Login::usuariosActivos');
+
+$routes->get('productos/crear', 'ProductosController::crear');
+$routes->post('productos/guardar', 'ProductosController::guardar');
+

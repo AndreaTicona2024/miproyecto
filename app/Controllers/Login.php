@@ -141,10 +141,10 @@ class Login extends Controller
             $this->enviarCorreoVerificacion($email, $token);
     
             $this->session->setFlashdata('success', 'Por favor, verifica tu correo electrónico para completar el registro.');
-            return redirect()->to('/Login/listadeusuarios');
+            return redirect()->to('/Login/index');
         } else {
             $this->session->setFlashdata('error', 'Error al registrar el usuario');
-            // return redirect()->to('/Login/create');
+            return redirect()->to('/Login/create');
         }
     }
 
@@ -344,5 +344,61 @@ public function existeCorreo($email)
 {
     return $this->where('email', $email)->first() !== null;
     
+}
+
+public function store()
+{
+    if (!$this->session->get('isLoggedIn')) {
+        return redirect()->to('/Login/index');
+    }
+
+    $productModel = new ProductModel();
+
+    $validation = \Config\Services::validation();
+    $validation->setRules([
+        'nombre' => 'required|min_length[3]',
+        'descripcion' => 'required',
+        'precioBase' => 'required|numeric',
+        'stock' => 'required|integer',
+        'fechaRegistro' => 'required|valid_date',
+        'fechaActualizacion' => 'permit_empty|valid_date',
+        'estado' => 'required|in_list[activo,inactivo]',
+        'imgUrl' => 'permit_empty|mime_in[imgUrl,image/jpeg,image/png]|max_size[imgUrl,2048]'
+    ]);
+
+    if (!$this->validate($validation->getRules())) {
+        return redirect()->back()->withInput()->with('errors', $validation->getErrors());
+    }
+
+    $data = [
+        'nombre' => $this->request->getPost('nombre'),
+        'descripcion' => $this->request->getPost('descripcion'),
+        'precioBase' => $this->request->getPost('precioBase'),
+        'stock' => $this->request->getPost('stock'),
+        'fechaRegistro' => $this->request->getPost('fechaRegistro'),
+        'fechaActualizacion' => $this->request->getPost('fechaActualizacion') ?: null,
+        'estado' => $this->request->getPost('estado'),
+        'imgUrl' => $this->uploadImage() // Método para manejar la carga de imágenes
+    ];
+
+    if ($productModel->insert($data)) {
+        $this->session->setFlashdata('success', 'Producto añadido exitosamente');
+        return redirect()->to('/Product/create');
+    } else {
+        $this->session->setFlashdata('error', 'Error al añadir el producto');
+        return redirect()->back()->withInput();
+    }
+}
+
+// Método para manejar la carga de imágenes
+private function uploadImage()
+{
+    $imgUrl = $this->request->getFile('imgUrl');
+    if ($imgUrl->isValid() && !$imgUrl->hasMoved()) {
+        $newName = $imgUrl->getRandomName();
+        $imgUrl->move(WRITEPATH . 'uploads', $newName);
+        return $newName;
+    }
+    return null;
 }
 }
