@@ -8,7 +8,15 @@ class Categoria{
 public function __construct(){
 
 }
-
+public function editar($idcategoria,$nombre,$descripcion){
+	$sql="UPDATE categoria SET nombre='$nombre',descripcion='$descripcion' 
+	WHERE idcategoria='$idcategoria'";
+	return ejecutarConsulta($sql);
+}
+public function desactivar($idcategoria){
+	$sql="UPDATE categoria SET condicion='0' WHERE idcategoria='$idcategoria'";
+	return ejecutarConsulta($sql);
+}
 //metodo insertar regiustro
 public function insertar($nombre,$descripcion){
 	$sql="INSERT INTO categoria (nombre,descripcion,condicion) VALUES ('$nombre','$descripcion','1')";
