@@ -25,8 +25,6 @@ switch ($_GET["op"]) {
         
 	}
 		break;
-	
-
 	case 'anular':
 		$rspta=$ingreso->anular($idingreso);
 		echo $rspta ? "Ingreso anulado correctamente" : "No se pudo anular el ingreso";

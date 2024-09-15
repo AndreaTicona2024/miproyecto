@@ -8,12 +8,10 @@ if (!isset($_SESSION['nombre'])) {
 require 'header.php';
 
 if ($_SESSION['compras']==1) {
-
  ?>
     <div class="content-wrapper">
     <!-- Main content -->
     <section class="content">
-
       <!-- Default box -->
       <div class="row">
         <div class="col-md-12">
@@ -21,7 +19,7 @@ if ($_SESSION['compras']==1) {
 <div class="box-header with-border">
   <h1 class="box-title">Ingresos <button class="btn btn-success" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i>Agregar</button></h1>
   <div class="box-tools pull-right">
-    
+       
   </div>
 </div>
 <!--box-header-->
@@ -180,3 +178,4 @@ require 'footer.php';
 
 ob_end_flush();
   ?>
+
