@@ -166,7 +166,6 @@ if ($_SESSION['compras']==1) {
       </div>
     </div>
   </div>
-  <!-- fin Modal-->
 <?php 
 }else{
  require 'noacceso.php'; 
