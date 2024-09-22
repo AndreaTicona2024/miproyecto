@@ -107,7 +107,6 @@ if ($_SESSION['compras']==1) {
          <th><h4 id="total">Bs/.0.00</h4><input type="hidden" name="total_compra" id="total_compra"></th>
        </tfoot>
        <tbody>
-         
        </tbody>
      </table>
     </div>
@@ -117,15 +116,11 @@ if ($_SESSION['compras']==1) {
     </div>
   </form>
 </div>
-
       </div>
       </div>
       </div>
-
     </section>
-
   </div>
-
   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">

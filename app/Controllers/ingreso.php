@@ -36,7 +36,6 @@ switch ($_GET["op"]) {
 		break;
 
 	case 'listarDetalle':
-		//recibimos el idingreso
 		$id=$_GET['id'];
 
 		$rspta=$ingreso->listarDetalle($id);
@@ -74,15 +73,12 @@ switch ($_GET["op"]) {
     case 'listar':
 		$rspta=$ingreso->listar();
 		$data=Array();
-
 		while ($reg=$rspta->fetch_object()) {
 			$data[]=array(
-            "0"=>($reg->estado=='Aceptado')?'<button class="btn btn-warning btn-xs" onclick="mostrar('.$reg->idingreso.')"><i class="fa fa-eye"></i></button>'.' '.'<button class="btn btn-danger btn-xs" onclick="anular('.$reg->idingreso.')"><i class="fa fa-close"></i></button>':'<button class="btn btn-warning btn-xs" onclick="mostrar('.$reg->idingreso.')"><i class="fa fa-eye"></i></button>',
-            "1"=>$reg->fecha,
-            "2"=>$reg->proveedor,
-            "3"=>$reg->usuario,
-            "4"=>$reg->tipo_comprobante,
-            "5"=>$reg->serie_comprobante. '-' .$reg->num_comprobante,
+
+            "0"=>($reg->estado=='Aceptado')?
+            '<button class="btn btn-warning btn-xs" onclick="mostrar('.$reg->idingreso.')"><i class="fa fa-eye"></i></button>'.' '.'<button class="btn btn-danger btn-xs" onclick="anular('.$reg->idingreso.')"><i class="fa fa-close"></i></button>':'<button class="btn btn-warning btn-xs" onclick="mostrar('.$reg->idingreso.')"><i class="fa fa-eye"></i></button>',
+            "1"=>$reg->fecha, "2"=>$reg->proveedor, "3"=>$reg->usuario,  "4"=>$reg->tipo_comprobante,"5"=>$reg->serie_comprobante. '-' .$reg->num_comprobante,
             "6"=>$reg->total_compra,
             "7"=>($reg->estado=='Aceptado')?'<span class="label bg-green">Aceptado</span>':'<span class="label bg-red">Anulado</span>'
               );
@@ -116,18 +112,14 @@ switch ($_GET["op"]) {
 		while ($reg=$rspta->fetch_object()) {
 			$data[]=array(
             "0"=>'<button class="btn btn-warning" onclick="agregarDetalle('.$reg->idarticulo.',\''.$reg->nombre.'\')"><span class="fa fa-plus"></span></button>',
-            "1"=>$reg->nombre,
-            "2"=>$reg->categoria,
-            "3"=>$reg->codigo,
-            "4"=>$reg->stock,
+            "1"=>$reg->nombre,"2"=>$reg->categoria,"3"=>$reg->codigo,"4"=>$reg->stock,
             "5"=>"<img src='../files/articulos/".$reg->imagen."' height='50px' width='50px'>"
-          
               );
 		}
 		$results=array(
-             "sEcho"=>1,//info para datatables
-             "iTotalRecords"=>count($data),//enviamos el total de registros al datatable
-             "iTotalDisplayRecords"=>count($data),//enviamos el total de registros a visualizar
+             "sEcho"=>1,
+             "iTotalRecords"=>count($data),
+             "iTotalDisplayRecords"=>count($data),
              "aaData"=>$data); 
 		echo json_encode($results);
 
