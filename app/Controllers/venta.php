@@ -14,10 +14,6 @@ $num_comprobante=isset($_POST["num_comprobante"])? limpiarCadena($_POST["num_com
 $fecha_hora=isset($_POST["fecha_hora"])? limpiarCadena($_POST["fecha_hora"]):"";
 $impuesto=isset($_POST["impuesto"])? limpiarCadena($_POST["impuesto"]):"";
 $total_venta=isset($_POST["total_venta"])? limpiarCadena($_POST["total_venta"]):"";
-
-
-
-
 switch ($_GET["op"]) {
 	case 'guardaryeditar':
 	if (empty($idventa)) {
@@ -40,7 +36,6 @@ switch ($_GET["op"]) {
 		break;
 
 	case 'listarDetalle':
-		//recibimos el idventa
 		$id=$_GET['id'];
 
 		$rspta=$venta->listarDetalle($id);
@@ -63,15 +58,6 @@ switch ($_GET["op"]) {
 			<td>'.$reg->subtotal.'</td></tr>';
 			$total=$total+($reg->precio_venta*$reg->cantidad-$reg->descuento);
 		}
-		echo '<tfoot>
-         <th>TOTAL</th>
-         <th></th>
-         <th></th>
-         <th></th>
-         <th></th>
-         <th><h4 id="total">Bs.. '.$total.'</h4><input type="hidden" name="total_venta" id="total_venta"></th>
-       </tfoot>';
-		break;
 
     case 'listar':
 		$rspta=$venta->listar();
@@ -120,18 +106,7 @@ switch ($_GET["op"]) {
 			$articulo=new Articulo();
 
 				$rspta=$articulo->listarActivosVenta();
-		$data=Array();
 
-		while ($reg=$rspta->fetch_object()) {
-			$data[]=array(
-            "0"=>'<button class="btn btn-warning" onclick="agregarDetalle('.$reg->idarticulo.',\''.$reg->nombre.'\','.$reg->precio_venta.')"><span class="fa fa-plus"></span></button>',
-            "1"=>$reg->nombre,
-            "2"=>$reg->categoria,
-            "3"=>$reg->codigo,
-            "4"=>$reg->stock,
-            "5"=>$reg->precio_venta,
-            "6"=>"<img src='../files/articulos/".$reg->imagen."' height='50px' width='50px'>"
-          
               );
 		}
 		$results=array(
