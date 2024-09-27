@@ -164,3 +164,23 @@ if ($_SESSION['ventas']==1) {
             </tfoot>
           </table>
         </div>
+        <div class="modal-footer">
+          <button class="btn btn-default" type="button" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<?php 
+}else{
+ require 'noacceso.php'; 
+}
+
+require 'footer.php';
+ ?>
+ <script src="scripts/venta.js"></script>
+ <?php 
+}
+
+ob_end_flush();
+  ?>
+

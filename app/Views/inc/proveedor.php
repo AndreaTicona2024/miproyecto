@@ -119,17 +119,11 @@ if ($_SESSION['compras']==1) {
     </div>
   </form>
 </div>
-<!--fin centro-->
       </div>
       </div>
       </div>
-      <!-- /.box -->
-
     </section>
-    <!-- /.content -->
   </div>
-
-  <!--Modal-->
   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
