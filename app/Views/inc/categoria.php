@@ -5,15 +5,12 @@ session_start();
 if (!isset($_SESSION['nombre'])) {
   header("Location: login.html");
 }else{
-
-
 require 'header.php';
 
 if ($_SESSION['almacen']==1) {
 
  ?>
     <div class="content-wrapper">
-    <!-- Main content -->
     <section class="content">
 
       <!-- Default box -->

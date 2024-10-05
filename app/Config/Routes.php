@@ -1,10 +1,13 @@
 <?php
+
 namespace Config;
+
 use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
 $routes = Services::routes();
+
 // Define el espacio de nombres, controlador y método predeterminados
 $routes->setDefaultNamespace('App\Controllers');
 $routes->setDefaultController('Home');
@@ -64,9 +67,21 @@ $routes->post('reportes/actualizar/(:num)', 'Reportes::actualizar/$1'); // Actua
 $routes->delete('reportes/eliminar/(:num)', 'Reportes::eliminar/$1'); // Eliminar un reporte
 $routes->get('reportes/generar/(:num)', 'Reportes::generar/$1'); // Generar un reporte específico
 
+// Rutas para ingresos
+$routes->get('ingresos', 'Ingresos::index'); // Listar ingresos
+$routes->get('ingresos/crear', 'Ingresos::crear'); // Formulario para crear un ingreso
+$routes->post('ingresos/guardar', 'Ingresos::guardar'); // Guardar un nuevo ingreso
+$routes->get('ingresos/editar/(:num)', 'Ingresos::editar/$1'); // Formulario para editar un ingreso
+$routes->post('ingresos/actualizar/(:num)', 'Ingresos::actualizar/$1'); // Actualizar un ingreso
+$routes->delete('ingresos/eliminar/(:num)', 'Ingresos::eliminar/$1'); // Eliminar un ingreso
 
-// Definir rutas de pruebas si es necesario
-$routes->get('test', 'TestController::index');
+// Rutas para proveedores
+$routes->get('proveedores', 'Proveedores::index'); // Listar proveedores
+$routes->get('proveedores/crear', 'Proveedores::crear'); // Formulario para crear un proveedor
+$routes->post('proveedores/guardar', 'Proveedores::guardar'); // Guardar un nuevo proveedor
+$routes->get('proveedores/editar/(:num)', 'Proveedores::editar/$1'); // Formulario para editar un proveedor
+$routes->post('proveedores/actualizar/(:num)', 'Proveedores::actualizar/$1'); // Actualizar un proveedor
+$routes->delete('proveedores/eliminar/(:num)', 'Proveedores::eliminar/$1'); // Eliminar un proveedor
 // Rutas para ventas
 $routes->get('ventas', 'Ventas::index'); // Listar ventas
 $routes->get('ventas/crear', 'Ventas::crear'); // Formulario para crear una nueva venta
@@ -75,4 +90,7 @@ $routes->get('ventas/editar/(:num)', 'Ventas::editar/$1'); // Formulario para ed
 $routes->post('ventas/actualizar/(:num)', 'Ventas::actualizar/$1'); // Actualizar una venta
 $routes->delete('ventas/eliminar/(:num)', 'Ventas::eliminar/$1'); // Eliminar una venta
 $routes->get('ventas/generar/(:num)', 'Ventas::generar/$1'); // Generar un reporte de una venta específica
+$routes->get('ventas/por_cliente/(:num)', 'Ventas::porCliente/$1'); // Listar ventas por cliente
 
+// Definir rutas de pruebas si es necesario
+$routes->get('test', 'TestController::index');
