@@ -1,14 +1,10 @@
 <?php
-
 namespace Config;
-
 use CodeIgniter\Router\RouteCollection;
-
 /**
  * @var RouteCollection $routes
  */
 $routes = Services::routes();
-
 // Define el espacio de nombres, controlador y método predeterminados
 $routes->setDefaultNamespace('App\Controllers');
 $routes->setDefaultController('Home');
@@ -47,7 +43,6 @@ $routes->get('404', 'Errors::show404');
 
 // Ruta para verificar el correo electrónico
 $routes->get('verificarCorreo', 'Login::verificarCorreo');
-<<<<<<< HEAD
 
 // Ruta para mostrar usuarios activos
 $routes->get('Login/usuariosActivos', 'Login::usuariosActivos');
@@ -55,27 +50,29 @@ $routes->get('Login/usuariosActivos', 'Login::usuariosActivos');
 // Rutas para productos
 $routes->get('productos/crear', 'Productos::crear');
 $routes->post('productos/guardar', 'Productos::guardar');
-
-// Ruta para listar productos
 $routes->get('productos', 'Productos::index');
-
-// Ruta para editar un producto
 $routes->get('productos/editar/(:num)', 'Productos::editar/$1');
-
-// Ruta para actualizar un producto
 $routes->post('productos/actualizar/(:num)', 'Productos::actualizar/$1');
-
-// Ruta para eliminar un producto
 $routes->delete('productos/eliminar/(:num)', 'Productos::eliminar/$1');
 
-// Rutas adicionales pueden ir aquí
+// Rutas para reportes
+$routes->get('reportes', 'Reportes::index'); // Listar reportes
+$routes->get('reportes/crear', 'Reportes::crear'); // Formulario para crear un nuevo reporte
+$routes->post('reportes/guardar', 'Reportes::guardar'); // Guardar un nuevo reporte
+$routes->get('reportes/editar/(:num)', 'Reportes::editar/$1'); // Formulario para editar un reporte
+$routes->post('reportes/actualizar/(:num)', 'Reportes::actualizar/$1'); // Actualizar un reporte
+$routes->delete('reportes/eliminar/(:num)', 'Reportes::eliminar/$1'); // Eliminar un reporte
+$routes->get('reportes/generar/(:num)', 'Reportes::generar/$1'); // Generar un reporte específico
+
 
 // Definir rutas de pruebas si es necesario
 $routes->get('test', 'TestController::index');
-=======
-$routes->get('Login/usuariosActivos', 'Login::usuariosActivos');
+// Rutas para ventas
+$routes->get('ventas', 'Ventas::index'); // Listar ventas
+$routes->get('ventas/crear', 'Ventas::crear'); // Formulario para crear una nueva venta
+$routes->post('ventas/guardar', 'Ventas::guardar'); // Guardar una nueva venta
+$routes->get('ventas/editar/(:num)', 'Ventas::editar/$1'); // Formulario para editar una venta
+$routes->post('ventas/actualizar/(:num)', 'Ventas::actualizar/$1'); // Actualizar una venta
+$routes->delete('ventas/eliminar/(:num)', 'Ventas::eliminar/$1'); // Eliminar una venta
+$routes->get('ventas/generar/(:num)', 'Ventas::generar/$1'); // Generar un reporte de una venta específica
 
-$routes->get('productos/crear', 'ProductosController::crear');
-$routes->post('productos/guardar', 'ProductosController::guardar');
-
->>>>>>> df995b144dcec79aa9274b344d523ee119dfc1c3
