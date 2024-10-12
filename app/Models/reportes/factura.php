@@ -136,3 +136,327 @@ function sizeOfText( $texte, $largeur )
 }
 
 // Company
+function addSociete( $nom, $adresse, $logo, $ext_logo  )
+{
+    $x1 = 30;
+    $y1 = 4;
+    //Positionnement en bas
+    $this->Image($logo, 5 , 3 , 25 , $ext_logo);
+    $this->SetXY( $x1, $y1 );
+    $this->SetFont('Arial','B',12);
+    $length = $this->GetStringWidth( $nom );
+    $this->Cell( $length, 2, $nom);
+    $this->SetXY( $x1, $y1 + 4 );
+    $this->SetFont('Arial','',10);
+    $length = $this->GetStringWidth( $adresse );
+    //Coordonnées de la société
+    $lignes = $this->sizeOfText( $adresse, $length) ;
+    $this->MultiCell($length, 4, $adresse);
+}
+
+// Label and number of invoice/estimate
+function fact_dev( $libelle, $num )
+{
+    $r1  = $this->w - 80;
+    $r2  = $r1 + 68;
+    $y1  = 6;
+    $y2  = $y1 + 2;
+    $mid = ($r1 + $r2 ) / 2;
+    
+    $texte  = $libelle . utf8_decode(" N° : ") . $num;    
+    $szfont = 12;
+    $loop   = 0;
+    
+    while ( $loop == 0 )
+    {
+       $this->SetFont( "Arial", "B", $szfont );
+       $sz = $this->GetStringWidth( $texte );
+       if ( ($r1+$sz) > $r2 )
+          $szfont --;
+       else
+          $loop ++;
+    }
+
+    $this->SetLineWidth(0.1);
+    $this->SetFillColor(192);
+    $this->RoundedRect($r1, $y1, ($r2 - $r1), $y2, 2.5, 'DF');
+    $this->SetXY( $r1+1, $y1+2);
+    $this->Cell($r2-$r1 -1,5, $texte, 0, 0, "C" );
+}
+
+// Estimate
+function addDevis( $numdev )
+{
+    $string = sprintf("DEV%04d",$numdev);
+    $this->fact_dev( "Devis", $string );
+}
+
+// Invoice
+function addFacture( $numfact )
+{
+    $string = sprintf("FA%04d",$numfact);
+    $this->fact_dev( "Facture", $string );
+}
+
+function addDate( $date )
+{
+    $r1  = $this->w - 80;
+    $r2  = $r1 + 68;
+    $y1  = 17;
+    $y2  = $y1 ;
+    $mid = $y1 + ($y2 / 2);
+    $this->RoundedRect($r1, $y1, ($r2 - $r1), $y2, 3.5, 'D');
+    $this->Line( $r1, $mid, $r2, $mid);
+    $this->SetXY( $r1 + ($r2-$r1)/2 - 5, $y1+3 );
+    $this->SetFont( "Arial", "B", 10);
+    $this->Cell(10,5, "FECHA", 0, 0, "C");
+    $this->SetXY( $r1 + ($r2-$r1)/2 - 5, $y1+9 );
+    $this->SetFont( "Arial", "", 10);
+    $this->Cell(10,5,$date, 0,0, "C");
+}
+
+function addClient( $ref )
+{
+    $r1  = $this->w - 31;
+    $r2  = $r1 + 19;
+    $y1  = 17;
+    $y2  = $y1;
+    $mid = $y1 + ($y2 / 2);
+    $this->RoundedRect($r1, $y1, ($r2 - $r1), $y2, 3.5, 'D');
+    $this->Line( $r1, $mid, $r2, $mid);
+    $this->SetXY( $r1 + ($r2-$r1)/2 - 5, $y1+3 );
+    $this->SetFont( "Arial", "B", 10);
+    $this->Cell(10,5, "CLIENT", 0, 0, "C");
+    $this->SetXY( $r1 + ($r2-$r1)/2 - 5, $y1 + 9 );
+    $this->SetFont( "Arial", "", 10);
+    $this->Cell(10,5,$ref, 0,0, "C");
+}
+
+function addPageNumber( $page )
+{
+    $r1  = $this->w - 80;
+    $r2  = $r1 + 19;
+    $y1  = 17;
+    $y2  = $y1;
+    $mid = $y1 + ($y2 / 2);
+    $this->RoundedRect($r1, $y1, ($r2 - $r1), $y2, 3.5, 'D');
+    $this->Line( $r1, $mid, $r2, $mid);
+    $this->SetXY( $r1 + ($r2-$r1)/2 - 5, $y1+3 );
+    $this->SetFont( "Arial", "B", 10);
+    $this->Cell(10,5, "PAGE", 0, 0, "C");
+    $this->SetXY( $r1 + ($r2-$r1)/2 - 5, $y1 + 9 );
+    $this->SetFont( "Arial", "", 10);
+    $this->Cell(10,5,$page, 0,0, "C");
+}
+
+// Client address
+function addClientAdresse( $cliente, $domicilio ,$num_documento, $email, $telefono )
+{
+    $r1     = $this->w - 180;
+    $r2     = $r1 + 68;
+    $y1     = 40;
+    $this->SetXY( $r1, $y1);
+    $this->SetFont("Arial","B",10);
+    $this->MultiCell( 60, 4, "CLIENTE");
+    $this->SetXY( $r1, $y1 + 5 );
+    $this->SetFont('Arial','',10);
+    $length = $this->GetStringWidth( $cliente );
+    $this->Cell( $length, 2, $cliente);
+    $this->SetXY( $r1, $y1 + 10 );
+    $length = $this->GetStringWidth( $domicilio );
+    $this->Cell( $length, 2, $domicilio);
+    $this->SetXY( $r1, $y1 + 15 );
+    $length = $this->GetStringWidth( $num_documento );
+    $this->Cell( $length, 2, $num_documento);
+    $this->SetXY( $r1, $y1 + 20 );
+    $length = $this->GetStringWidth( $email );
+    $this->Cell( $length, 2, $email);
+    $this->SetXY( $r1, $y1 + 25 );
+    $length = $this->GetStringWidth( $telefono );
+    $this->Cell( $length, 2, $telefono);
+
+}
+
+// Mode of payment
+function addReglement( $mode )
+{
+    $r1  = 10;
+    $r2  = $r1 + 60;
+    $y1  = 80;
+    $y2  = $y1+10;
+    $mid = $y1 + (($y2-$y1) / 2);
+    $this->RoundedRect($r1, $y1, ($r2 - $r1), ($y2-$y1), 2.5, 'D');
+    $this->Line( $r1, $mid, $r2, $mid);
+    $this->SetXY( $r1 + ($r2-$r1)/2 -5 , $y1+1 );
+    $this->SetFont( "Arial", "B", 10);
+    $this->Cell(10,4, "MODE DE REGLEMENT", 0, 0, "C");
+    $this->SetXY( $r1 + ($r2-$r1)/2 -5 , $y1 + 5 );
+    $this->SetFont( "Arial", "", 10);
+    $this->Cell(10,5,$mode, 0,0, "C");
+}
+
+// Expiry date
+function addEcheance( $date )
+{
+    $r1  = 80;
+    $r2  = $r1 + 40;
+    $y1  = 80;
+    $y2  = $y1+10;
+    $mid = $y1 + (($y2-$y1) / 2);
+    $this->RoundedRect($r1, $y1, ($r2 - $r1), ($y2-$y1), 2.5, 'D');
+    $this->Line( $r1, $mid, $r2, $mid);
+    $this->SetXY( $r1 + ($r2 - $r1)/2 - 5 , $y1+1 );
+    $this->SetFont( "Arial", "B", 10);
+    $this->Cell(10,4, "DATE D'ECHEANCE", 0, 0, "C");
+    $this->SetXY( $r1 + ($r2-$r1)/2 - 5 , $y1 + 5 );
+    $this->SetFont( "Arial", "", 10);
+    $this->Cell(10,5,$date, 0,0, "C");
+}
+
+// VAT number
+function addNumTVA($tva)
+{
+    $this->SetFont( "Arial", "B", 10);
+    $r1  = $this->w - 80;
+    $r2  = $r1 + 70;
+    $y1  = 80;
+    $y2  = $y1+10;
+    $mid = $y1 + (($y2-$y1) / 2);
+    $this->RoundedRect($r1, $y1, ($r2 - $r1), ($y2-$y1), 2.5, 'D');
+    $this->Line( $r1, $mid, $r2, $mid);
+    $this->SetXY( $r1 + 16 , $y1+1 );
+    $this->Cell(40, 4, "TVA Intracommunautaire", '', '', "C");
+    $this->SetFont( "Arial", "", 10);
+    $this->SetXY( $r1 + 16 , $y1+5 );
+    $this->Cell(40, 5, $tva, '', '', "C");
+}
+
+function addReference($ref)
+{
+    $this->SetFont( "Arial", "", 10);
+    $length = $this->GetStringWidth( "Références : " . $ref );
+    $r1  = 10;
+    $r2  = $r1 + $length;
+    $y1  = 92;
+    $y2  = $y1+5;
+    $this->SetXY( $r1 , $y1 );
+    $this->Cell($length,4, "Références : " . $ref);
+}
+
+function addCols($tab)
+{
+    global $colonnes;
+
+    $r1  = 10; // Margen izquierdo
+    $r2  = $this->w - ($r1 * 2); // Ancho total de la tabla
+    $y1  = 75; // Coordenada Y inicial
+    $y2  = $this->h - 50 - $y1; // Altura de la tabla
+    $this->SetXY($r1, $y1); // Establecer la posición inicial
+    $this->Rect($r1, $y1, $r2, $y2, "D"); // Dibujar el rectángulo de la tabla
+    $this->Line($r1, $y1 + 6, $r1 + $r2, $y1 + 6); // Dibujar línea horizontal
+    $colX = $r1; // Coordenada X inicial
+    $colonnes = $tab; // Almacenar las columnas
+
+    // Reemplazar 'each()' con un bucle foreach
+    foreach ($tab as $lib => $pos) {
+        $this->SetXY($colX, $y1 + 2); // Establecer la posición para el nombre de la columna
+        $this->Cell($pos, 1, $lib, 0, 0, "C"); // Dibujar la celda del encabezado
+        $colX += $pos; // Incrementar la posición X
+        $this->Line($colX, $y1, $colX, $y1 + $y2); // Dibujar línea vertical
+    }
+}
+
+function addLineFormat($tab)
+{
+    global $format, $colonnes;
+
+    // Reemplazar 'each()' con un bucle foreach
+    foreach ($colonnes as $lib => $pos) {
+        if (isset($tab[$lib])) {
+            $format[$lib] = $tab[$lib];
+        }
+    }
+}
+
+function lineVert( $tab )
+{
+    global $colonnes;
+
+    reset( $colonnes );
+    $maxSize=0;
+    while ( list( $lib, $pos ) = each ($colonnes) )
+    {
+        $texte = $tab[ $lib ];
+        $longCell  = $pos -2;
+        $size = $this->sizeOfText( $texte, $longCell );
+        if ($size > $maxSize)
+            $maxSize = $size;
+    }
+    return $maxSize;
+}
+
+// add a line to the invoice/estimate
+/*    $ligne = array( "REFERENCE"    => $prod["ref"],
+                      "DESIGNATION"  => $libelle,
+                      "QUANTITE"     => sprintf( "%.2F", $prod["qte"]) ,
+                      "P.U. HT"      => sprintf( "%.2F", $prod["px_unit"]),
+                      "MONTANT H.T." => sprintf ( "%.2F", $prod["qte"] * $prod["px_unit"]) ,
+                      "TVA"          => $prod["tva"] );
+*/
+function addLine($ligne, $tab)
+{
+    global $colonnes, $format;
+
+    $ordonnee = 10;
+    $maxSize = $ligne;
+
+    // Usar un bucle foreach en lugar de each()
+    foreach ($colonnes as $lib => $pos) {
+        $longCell = $pos - 2;
+        $texte = $tab[$lib];
+        $length = $this->GetStringWidth($texte);
+        $tailleTexte = $this->sizeOfText($texte, $length);
+        $formText = $format[$lib];
+
+        $this->SetXY($ordonnee, $ligne - 1);
+        $this->MultiCell($longCell, 4, $texte, 0, $formText);
+        
+        if ($maxSize < ($this->GetY())) {
+            $maxSize = $this->GetY();
+        }
+        
+        $ordonnee += $pos;
+    }
+    
+    return ($maxSize - $ligne);
+}
+
+
+function addRemarque($remarque)
+{
+    $this->SetFont( "Arial", "", 10);
+    $length = $this->GetStringWidth( "Remarque : " . $remarque );
+    $r1  = 10;
+    $r2  = $r1 + $length;
+    $y1  = $this->h - 45.5;
+    $y2  = $y1+5;
+    $this->SetXY( $r1 , $y1 );
+    $this->Cell($length,4, "Remarque : " . $remarque);
+}
+
+function addCadreTVAs($letras)
+{
+    $this->SetFont( "Arial", "B", 10);
+    $r1  = 10;
+    $r2  = $r1 + 120;
+    $y1  = $this->h - 40;
+    $y2  = $y1+20;
+    $this->RoundedRect($r1, $y1, ($r2 - $r1), ($y2-$y1), 2.5, 'D');
+    $this->Line( $r1, $y1+4, $r2, $y1+4);
+    $this->SetXY( $r1+9, $y1);
+    $this->Cell(10,4, "Total en letras.");
+    $this->SetFont( "Arial", "", 10);
+    $this->SetXY( $r1+10, $y2 - 8 );
+    $this->Cell(6,0, $letras);
+}
+
