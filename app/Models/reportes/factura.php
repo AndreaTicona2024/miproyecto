@@ -460,3 +460,95 @@ function addCadreTVAs($letras)
     $this->Cell(6,0, $letras);
 }
 
+function addCadreEurosFrancs($impuesto)
+{
+    $r1  = $this->w - 70;
+    $r2  = $r1 + 60;
+    $y1  = $this->h - 40;
+    $y2  = $y1+20;
+    $this->RoundedRect($r1, $y1, ($r2 - $r1), ($y2-$y1), 2.5, 'D');
+    $this->Line( $r1+20,  $y1, $r1+20, $y2); // avant EUROS
+    $this->Line( $r1+20, $y1+4, $r2, $y1+4); // Sous Euros & Francs
+    $this->SetXY( $r1, $y1 + 50 );
+    $this->SetFont( "Arial", "B", 8);
+    $this->SetXY( $r1+22, $y1 );
+    $this->Cell(35,4, "TOTALES", 0, 0, "C");
+    $this->SetFont( "Arial", "", 8);
+    $this->SetFont( "Arial", "B", 6);
+    $this->SetXY( $r1, $y1+5 );
+    $this->Cell(20,4, "SUBTOTAL", 0, 0, "C");
+    $this->SetXY( $r1, $y1+10 );
+    $this->Cell(20,4,  $impuesto, 0, 0, "C");
+    $this->SetXY( $r1, $y1+15 );
+    $this->Cell(20,4, "TOTAL A PAGAR", 0, 0, "C");
+}
+
+// remplit les cadres TVA / Totaux et la remarque
+// params  = array( "RemiseGlobale" => [0|1],
+//                      "remise_tva"     => [1|2...],  // {la remise s'applique sur ce code TVA}
+//                      "remise"         => value,     // {montant de la remise}
+//                      "remise_percent" => percent,   // {pourcentage de remise sur ce montant de TVA}
+//                  "FraisPort"     => [0|1],
+//                      "portTTC"        => value,     // montant des frais de ports TTC
+//                                                     // par defaut la TVA = 19.6 %
+//                      "portHT"         => value,     // montant des frais de ports HT
+//                      "portTVA"        => tva_value, // valeur de la TVA a appliquer sur le montant HT
+//                  "AccompteExige" => [0|1],
+//                      "accompte"         => value    // montant de l'acompte (TTC)
+//                      "accompte_percent" => percent  // pourcentage d'acompte (TTC)
+//                  "Remarque" => "texte"              // texte
+// tab_tva = array( "1"       => 19.6,
+//                  "2"       => 5.5, ... );
+// invoice = array( "px_unit" => value,
+//                  "qte"     => qte,
+//                  "tva"     => code_tva );
+function addTVAs( $impuesto, $total_venta, $simbolo )
+{
+    $this->SetFont('Arial','',8);
+    
+    
+    $re  = $this->w - 30;
+    $rei  = $this->w - 28;
+    $rf  = $this->w - 29;
+    $y1  = $this->h - 39;
+    $this->SetFont( "Arial", "", 8);
+    //calculando el subtotal y mostrando
+    $this->SetXY( $re, $y1+5 );
+    $length = $this->GetStringWidth( $simbolo );
+    $this->Cell( $length, 2, $simbolo);
+    $total=$total_venta/1.18;
+    $length = $this->GetStringWidth( round($total,2) );
+    $this->Cell( $length, 2, round($total,2));
+    // calculando el igv y mostrando
+    $this->SetXY( $rei, $y1+10 );
+    $length = $this->GetStringWidth( $simbolo );
+    $this->Cell( $length, 2, $simbolo);
+    $igv=$total_venta-$total;
+    $length = $this->GetStringWidth(round($igv,2) );
+    $this->Cell( $length, 2, round($igv,2));
+    // mostrando el total
+    $this->SetXY( $re, $y1+15 );
+    $length = $this->GetStringWidth( $simbolo );
+    $this->Cell( $length, 2, $simbolo);
+    $length = $this->GetStringWidth( $total_venta );
+    $this->Cell( $length, 2, $total_venta);
+   
+ 
+
+
+}
+
+// add a watermark (temporary estimate, DUPLICATA...)
+// call this method first
+function temporaire( $texte )
+{
+    $this->SetFont('Arial','B',50);
+    $this->SetTextColor(203,203,203);
+    $this->Rotate(45,55,190);
+    $this->Text(55,190,$texte);
+    $this->Rotate(0);
+    $this->SetTextColor(0,0,0);
+}
+
+}
+?>
